@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      h1 {
+        color: blueviolet;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      p {
+        color: azure;
+        font-size: 20px;
+        font-style: initial;
+        text-decoration: solid;
+      }
+      .container {
+        width: 80%;
+        height: 600px;
+        background-color: rgb(17, 17, 17);
+        display: inline-block;
+        align-items: left;
+        justify-content: left;
+        font-family: "protest Revolution", sans-serif;
+        font-weight: 400;
+        font-style: inherit;
+      }
+      .change-text {
+        font-size: 2.5rem;
+        font-weight: 600;
+        display: inline-flex;
+      }
+      .change-text h2 {
+        display: inline-flex;
+        margin: 0;
+        vertical-align: top;
+      }
+      .change-text h4 .word {
+        position: absolute;
+        display: flex;
+        opacity: 0;
+        color: rgb(10, 243, 243);
+        display: inline-flex;
+      }
+      .change-text h4 .word .letter {
+        transform-origin: center center 40px;
+      }
+      .change-text h4 .word .letter.out {
+        transform: rotateX(90deg);
+        transition: 0.32s cubic-bezier(0.6, 0, 0.7, 0.2);
+      }
+      .change-text h4 .word .letter.in {
+        transition: 0.38s ease;
+      }
+      .change-text h4 .word .letter.behind {
+        transform: rotate(-90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hi i'am Juned,</h1>
+      <div class="change-text">
+        <h3>i'm,</h3>
+        <h4>
+          <span class="word">a&nbsp;Fitness&nbsp;trainer</span>
+          <span class="word">a&nbsp;Web&nbsp;Diginer</span>
+          <span class="word">a&nbsp;FrontEnd&nbsp;programer</span>
+          <span class="word">a&nbsp;SEO</span>
+          <span class="word">a&nbsp;Data&nbsp;anylytics</span>
+        </h4>
+      </div>
+      <p>
+        With a solid foundation in programming, I've spent years delving into
+        the intricacies of software development. From writing efficient code to
+        architecting robust systems, I thrive in the fast-paced world of
+        technology. My expertise spans multiple programming languages and
+        frameworks, allowing me to tackle challenges with agility and
+        creativity. In the realm of data analytics, I'm passionate about
+        uncovering actionable insights from complex datasets. Armed with
+        advanced statistical methods and state-of-the-art tools, I delve deep
+        into data to extract meaningful patterns and trends. My analytical
+        skills have been instrumental in driving strategic decisions and
+        enhancing operational efficiency across various industries. Education
+        and Credentials I hold a Master of Business Administration (MBA) degree
+        from Greenwich University, where I cultivated a comprehensive
+        understanding of business principles and management strategies. My
+        academic journey equipped me with the leadership skills and strategic
+        mindset necessary to thrive in today's competitive business landscape.
+        Passion for Fitness Beyond my professional pursuits, I'm deeply
+        committed to personal well-being and fitness. I believe that a healthy
+        lifestyle is the cornerstone of success, both professionally and
+        personally. Whether it's hitting the gym, practicing yoga, or exploring
+        outdoor activities, I prioritize physical fitness as a means to maintain
+        peak performance and foster overall well-being.
+      </p>
+    </div>
+    <script>
+      let words = document.querySelectorAll(".word");
+      words.forEach((word) => {
+        let letters = word.textContent.split("");
+        word.textContent = "";
+        letters.forEach((letter) => {
+          let span = document.createElement("span");
+          span.textContent = letter;
+          span.className = "letter";
+          word.append(span);
+        });
+      });
+      let currentWordIndex = 0;
+      let maxWordIndex = words.length - 1;
+      words[currentWordIndex].style.opacity = "1";
+
+      let changeText = () => {
+        let currentWord = words[currentWordIndex];
+        let nextWord =
+          currentWordIndex === maxWordIndex
+            ? words[0]
+            : words[currentWordIndex + 1];
+        Array.from(currentWord.children).forEach((letter, i) => {
+          setTimeout(() => {
+            letter.className = "letter out";
+          }, i * 80);
+        });
+        nextWord.style.opacity = "1";
+        Array.from(nextWord.children).forEach((letter, i) => {
+          letter.className = "letter behind";
+          setTimeout(() => {
+            letter.className = "letter in";
+          }, 340 + i * 80);
+        });
+        currentWordIndex =
+          currentWordIndex === maxWordIndex ? 0 : currentWordIndex + 1;
+      };
+      changeText();
+      setInterval(changeText, 3000);
+    </script>
+  </body>
+</html>
